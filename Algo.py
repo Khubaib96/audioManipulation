@@ -89,13 +89,13 @@ def manipulate_audio(chunks):
         detected_pitch = detect_pitch(chunk)
 
         # Calculate random changes within ±10%
-        pitch_change = detected_pitch * random.uniform(-0.1, 0.1)
+        pitch_change = random.uniform(0.5, 1.5)
         speed_change_factor = random.uniform(0.98, 1.02)
         speed_change = max(0.99, min(1.01, speed_change_factor))  # Limit speed change to 0.5x to 2.0x
         reverb_change = random.randint(45, 55)  # Assuming a base reverb level of 50
 
-        chunk = apply_speed_change(chunk, speed=speed_change)
         chunk = change_pitch(chunk, semitones=pitch_change)
+        chunk = apply_speed_change(chunk, speed=speed_change)
         chunk = apply_reverb(chunk, reverb_level=reverb_change)
         manipulated_chunks.append(chunk)
     return manipulated_chunks
@@ -109,7 +109,7 @@ def combine_audio(chunks):
 
 
 if __name__ == "__main__":
-    youtube_url = 'https://www.youtube.com/watch?v=Nnop2walGmM'
+    youtube_url = 'https://www.youtube.com/watch?v=testCode'
     output_path = './downloads'
     os.makedirs(output_path, exist_ok=True)
     downloaded_file = download_audio(youtube_url, output_path)
